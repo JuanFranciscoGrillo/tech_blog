@@ -21,6 +21,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Add routes (To be implemented)
+// User routes
+const userRoutes = require('./controllers/api/userRoutes');
+app.use('/api/users', userRoutes);
+
+// Post routes
+const postRoutes = require('./controllers/api/postRoutes');
+app.use('/api/posts', postRoutes);
+
+// Comment routes
+const commentRoutes = require('./controllers/api/commentRoutes');
+app.use('/api/comments', commentRoutes);
+
+// Add other routes (To be implemented)
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

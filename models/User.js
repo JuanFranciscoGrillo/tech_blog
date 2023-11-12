@@ -11,6 +11,7 @@ class User extends Model {
 
 User.init(
     {
+        // Model attributes are defined here
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -29,6 +30,7 @@ User.init(
     },
     {
         hooks: {
+            // Hashing the user's password before saving it to the database
             beforeCreate: async (userData) => {
                 userData.password = await bcrypt.hash(userData.password, 10);
                 return userData;
@@ -39,5 +41,16 @@ User.init(
         modelName: 'user'
     }
 );
+
+// Associations
+User.hasMany(Post, {
+    foreignKey: 'userId',
+    onDelete: 'CASCADE'
+});
+
+User.hasMany(Comment, {
+    foreignKey: 'userId',
+    onDelete: 'CASCADE'
+});
 
 module.exports = User;

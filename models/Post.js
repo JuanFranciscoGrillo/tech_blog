@@ -5,6 +5,7 @@ class Post extends Model {}
 
 Post.init(
     {
+        // Model attributes are defined here
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -32,5 +33,16 @@ Post.init(
         modelName: 'post'
     }
 );
+
+// Associations
+Post.belongsTo(User, {
+    foreignKey: 'userId',
+    onDelete: 'CASCADE'
+});
+
+Post.hasMany(Comment, {
+    foreignKey: 'postId',
+    onDelete: 'CASCADE'
+});
 
 module.exports = Post;

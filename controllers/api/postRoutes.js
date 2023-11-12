@@ -37,17 +37,27 @@ router.put('/:id', withAuth, async (req, res) => {
 // DELETE route to delete a post
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const deletedPost = await Post.destroy({
+        const postData = await Post.destroy({
             where: {
                 id: req.params.id,
                 userId: req.session.userId,
             },
         });
-        if (!deletedPost) {
+        if (!postData) {
             res.status(404).json({ message: 'No post found with this id!' });
             return;
         }
-        res.json(deletedPost);
+        res.json(postData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Read operation - Get all posts
+router.get('/', async (req, res) => {
+    try {
+        const postData = await Post.findAll();
+        res.status(200).json(postData);
     } catch (err) {
         res.status(500).json(err);
     }

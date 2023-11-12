@@ -49,3 +49,4 @@ Comment.belongsTo(Post, {
 });
 
 module.exports = Comment;
+gi
